@@ -22,6 +22,8 @@ public class ContaService {
     private Set<Conta> contas = new HashSet<>();
 
     public Set<Conta> listarContasAbertas() {
+        Connection conn = connection.recuperarConexao();
+        contas = new ContaDAO(conn).listar();
         return contas;
     }
 
