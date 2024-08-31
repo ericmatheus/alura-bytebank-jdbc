@@ -36,17 +36,22 @@ public class ContaDAO {
             preparedStatement.setString(4, cliente.getCpf());
             preparedStatement.setString(5, cliente.getEmail());
             preparedStatement.execute();
+            // É necessario fechar a conexao Connection e o PreparedStatement
+            preparedStatement.close();
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public Set<Conta> listar(){
+        ResultSet resultSet;
+        PreparedStatement preparedStatement;
         Set<Conta> contas = new HashSet<>();
         String sql = "SELECT * FROM conta";
         try{
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery(); // executeQuery() retorna ResultSet com o conteúdo da query
+            preparedStatement = conn.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery(); // executeQuery() retorna ResultSet com o conteúdo da query
             while(resultSet.next()){
                 Integer numero = resultSet.getInt(1);
                 BigDecimal saldo = resultSet.getBigDecimal(2);
@@ -57,9 +62,13 @@ public class ContaDAO {
                 Conta conta = new Conta(numero, cliente);
                 contas.add(conta);
             }
+            preparedStatement.close();
+            resultSet.close();
+            conn.close();
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+
         return contas;
     }
 

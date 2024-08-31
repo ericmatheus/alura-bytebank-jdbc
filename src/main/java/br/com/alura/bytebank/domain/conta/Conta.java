@@ -64,6 +64,13 @@ public class Conta {
     }
 
     public String toString(){
-        return "Conta: " + numero + " saldo: " + saldo + " Nome: " + getTitular().getNome() + "Email: " + getTitular().getEmail();
-    }
+        return "Conta: " + numero + " saldo: " + saldo + " Nome: " + getTitular().getNome() + "CPF: " +
+        getTitular().getCpf() + "Email: " + getTitular().getEmail();
+   }
+
+//    public String toString(){
+//        return " " + numero + " " + saldo + " " + getTitular().getNome() + " " +
+//                getTitular().getCpf() + " " + getTitular().getEmail();
+//    }
+
 }
