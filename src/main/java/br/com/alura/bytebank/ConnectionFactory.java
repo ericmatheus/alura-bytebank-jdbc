@@ -24,6 +24,20 @@ public class ConnectionFactory {
 
     }
 
+    public Connection recuperarConexaoPostgree(){
+        Connection connection = null;
+        String url = "jdbc:postgresql://purely-powerful-anteater.data-1.use1.tembo.io:5432/bytebank";
+        String user = "postgres";
+        String password = "IjnfmXHKE0x08ARY";
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+            return connection;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
     private HikariDataSource createDataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://localhost:3306/byte_bank");

@@ -11,10 +11,10 @@ public class Conta {
     private BigDecimal saldo;
     private Cliente titular;
 
-    public Conta(Integer numero, Cliente titular) {
+    public Conta(Integer numero, Cliente titular, BigDecimal saldo) {
         this.numero = numero;
         this.titular = titular;
-        this.saldo = BigDecimal.ZERO;
+        this.saldo = saldo;
     }
 
     public boolean possuiSaldo() {
@@ -64,8 +64,8 @@ public class Conta {
     }
 
     public String toString(){
-        return "Conta: " + numero + " saldo: " + saldo + " Nome: " + getTitular().getNome() + "CPF: " +
-        getTitular().getCpf() + "Email: " + getTitular().getEmail();
+        return "Conta: " + numero + " | saldo: " + saldo + " | Nome: " + getTitular().getNome() + " | CPF: " +
+        getTitular().getCpf() + " | Email: " + getTitular().getEmail();
    }
 
 //    public String toString(){

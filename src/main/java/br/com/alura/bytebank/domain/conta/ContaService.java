@@ -13,6 +13,9 @@ import java.util.Set;
 
 public class ContaService {
 
+    public final String SET_FUNCAO_BANCO = "posstegre";
+//    public final String SET_FUNCAO_BANCO = "mysql";
+
     private ConnectionFactory connection;
 
     public ContaService() {
@@ -22,7 +25,8 @@ public class ContaService {
     private Set<Conta> contas = new HashSet<>();
 
     public Set<Conta> listarContasAbertas() {
-        Connection conn = connection.recuperarConexao();
+
+        Connection conn = (SET_FUNCAO_BANCO == "mysql") ? connection.recuperarConexao() : connection.recuperarConexaoPostgree() ;
         contas = new ContaDAO(conn).listar();
         return contas;
     }
@@ -38,7 +42,7 @@ public class ContaService {
 //        if (contas.contains(conta)) {
 //            throw new RegraDeNegocioException("Já existe outra conta aberta com o mesmo número!");
 //        }
-        Connection conn = connection.recuperarConexao();
+        Connection conn = connection.recuperarConexaoPostgree();
 
 //        ContaDAO contaDAO = new ContaDAO(conn);
 //        contaDAO.salvar(dadosDaConta);
@@ -75,7 +79,7 @@ public class ContaService {
         String sql = "DELETE FROM conta WHERE numero = " + numeroDaConta;
         System.out.println(sql);
 
-        Connection conn = connection.recuperarConexao();
+        Connection conn = connection.recuperarConexaoPostgree();
 
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
