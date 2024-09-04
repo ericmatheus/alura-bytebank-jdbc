@@ -25,18 +25,29 @@ public class ConnectionFactory {
     }
 
     public Connection recuperarConexaoPostgree(){
-        Connection connection = null;
-        String url = "jdbc:postgresql://purely-powerful-anteater.data-1.use1.tembo.io:5432/bytebank";
-        String user = "postgres";
-        String password = "IjnfmXHKE0x08ARY";
         try {
-            connection = DriverManager.getConnection(url, user, password);
-            return connection;
+            Connection connection = null;
+//            String url = "jdbc:postgresql://purely-powerful-anteater.data-1.use1.tembo.io:5432/bytebank";
+//            String user = "postgres";
+//            String password = "IjnfmXHKE0x08ARY";
+//            connection = DriverManager.getConnection(url, user, password);
+            return createDataSourcePostgre().getConnection();
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return connection;
+        return null;
     }
+
+    private HikariDataSource createDataSourcePostgre() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:postgresql://purely-powerful-anteater.data-1.use1.tembo.io:5432/bytebank");
+        config.setUsername("postgres");
+        config.setPassword("IjnfmXHKE0x08ARY");
+        config.setMaximumPoolSize(10);
+
+        return new HikariDataSource(config);
+    }
+
 
     private HikariDataSource createDataSource() {
         HikariConfig config = new HikariConfig();
